@@ -17,12 +17,12 @@ function Card(props) {
   );
 }
 
-Card.propTypes = {
-  title: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
-  textImg: PropTypes.string.isRequired,
-  textLink: PropTypes.string.isRequired,
-};
+Card.propTypes = ({
+  title: PropTypes.string,
+  img: PropTypes.string,
+  link: PropTypes.string,
+  textImg: PropTypes.string,
+  textLink: PropTypes.string,
+}).isRequired;
 
 export default Card;
