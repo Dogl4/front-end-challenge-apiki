@@ -5,11 +5,12 @@ import CardList from '../components/CardList';
 
 function Home() {
   const [data, setData] = useState(null);
+
   return (
     <main>
       <div>Home</div>
       <Fetch url={url()} setData={setData}>
-        <CardList data={data} />
+        { data && <CardList data={data.data} />}
       </Fetch>
     </main>
   );

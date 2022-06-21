@@ -1,23 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Card(props) {
+function Card({ data }) {
   const {
     title, img, link, textLink, textImg,
-  } = props;
+  } = data;
 
   return (
-    <div>
+    <div className="card">
       <h2>{title}</h2>
-      <a href={link}>
+      <a href={link} target="_blank" rel="noreferrer">
         <img src={img} alt={textImg} />
       </a>
-      <a href={link}>{textLink}</a>
+      <a href={link} target="_blank" rel="noreferrer">{textLink}</a>
     </div>
   );
 }
 
 Card.propTypes = ({
+  data: PropTypes.object,
   title: PropTypes.string,
   img: PropTypes.string,
   link: PropTypes.string,

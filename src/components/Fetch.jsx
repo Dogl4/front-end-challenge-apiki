@@ -8,12 +8,13 @@ function Fetch({ url, children, setData }) {
   useEffect(() => {
     let mounted = true;
 
-    axios.get(url).then((res) => {
-      if (mounted) {
-        setData(res.data);
-        setTemp(true);
-      }
-    });
+    axios.get(url)
+      .then((res) => {
+        if (mounted) {
+          setData(res);
+          setTemp(true);
+        }
+      });
 
     return () => {
       mounted = false;
