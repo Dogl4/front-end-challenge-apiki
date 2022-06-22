@@ -4,24 +4,11 @@ const mockObjDataCard = {
 
 const mockArrDataCardOne = {
   id: 1,
-  title: {
-    rendered: 'Titulo',
-  },
+  img: 'caminho/ou/link',
+  imgAlt: 'Alt da imagem',
   link: 'https://www.google.com',
   slug: 'Descrição',
-  _embedded: {
-    'wp:featuredmedia': [
-      {
-        media_details: {
-          sizes: {
-            'jnews-360x180': {
-              source_url: 'caminho/ou/link',
-            },
-          },
-        },
-      },
-    ],
-  },
+  title: 'Titulo',
 };
 const mockArrDataCard = [
   mockArrDataCardOne,

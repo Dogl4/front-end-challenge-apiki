@@ -1,16 +1,18 @@
 import '@testing-library/jest-dom';
 import React from 'react';
 import { render } from '@testing-library/react';
-import Card from '../components/Card';
-import CardList from '../components/CardList';
+import { Card } from '../components';
 import { mockObjDataCard, mockArrDataCard } from './mock';
 
 describe('Componente Card', () => {
-  it('Deve exixtir 10 Cards ou mais na tela', () => {
-    const { container } = render(<CardList data={mockArrDataCard} />);
+  it('Deve exixtir 10 Cards ou mais na tela', async () => {
+    const { container } = await render(
+      <div>
+        { mockArrDataCard.map((item) => <Card key={item.id} data={item} />) }
+      </div>,
+    );
 
     const card = container.querySelectorAll('.card');
-
     expect(card.length).toBeGreaterThanOrEqual(10);
   });
 
