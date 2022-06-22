@@ -3,27 +3,28 @@ import PropTypes from 'prop-types';
 
 function Card({ data }) {
   const {
-    title, img, link, textLink, textImg,
+    id, img, imgAlt, slug, title,
   } = data;
 
   return (
-    <div className="card">
+    <div className="card" data-testid="card" key={id}>
       <h2>{title}</h2>
-      <a href={link} target="_blank" rel="noreferrer">
-        <img src={img} alt={textImg} />
+      <a href={`/details/${id}`}>
+        <img src={img} alt={imgAlt} />
       </a>
-      <a href={link} target="_blank" rel="noreferrer">{textLink}</a>
+      <a href={`/details/${id}`}>{slug}</a>
     </div>
   );
 }
 
 Card.propTypes = ({
   data: PropTypes.object,
-  title: PropTypes.string,
+  id: PropTypes.number,
   img: PropTypes.string,
+  imgAlt: PropTypes.string,
+  title: PropTypes.string,
+  slug: PropTypes.string,
   link: PropTypes.string,
-  textImg: PropTypes.string,
-  textLink: PropTypes.string,
 }).isRequired;
 
 export default Card;

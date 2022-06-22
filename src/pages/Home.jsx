@@ -1,29 +1,44 @@
-import React, { useState } from 'react';
-import Fetch from '../components/Fetch';
-import url from '../util';
-import CardList from '../components/CardList';
-import LanePage from '../components/LanePage';
+import React, { useState, useEffect } from 'react';
+import { Card, Loading } from '../components';
+import dataFormatted from '../services/api';
 
 function Home() {
-  const [data, setData] = useState(null);
+  const [post, setPost] = useState([]);
+  const [pageInfo, setPageInfo] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  const infoPage = {
-    currentPage: data?.headers?.link?.split('page=', -1)[1].split('>')[0],
-    totalPages: data?.headers?.['x-wp-totalpages'],
+  useEffect(() => {
+    dataFormatted().then(({ data, infoPage }) => {
+      setPost(data);
+      setPageInfo(infoPage);
+    });
+  }, []);
+
+  const getMorePost = async () => {
+    const { currentPage } = pageInfo;
+    setLoading(true);
+    await dataFormatted(`&page=${currentPage}`).then(({ data }) => {
+      setPost([...post, ...data]);
+      setPageInfo({ ...pageInfo, currentPage: +currentPage + 1 });
+    });
+    setLoading(false);
   };
 
+  const { currentPage, totalPages } = pageInfo;
   return (
     <main>
       <div>Home</div>
-      <Fetch url={url()} setData={setData} data={data?.data}>
-        { data && <CardList data={data.data} />}
-      </Fetch>
-      { console.log('data HOME', data) }
-      <LanePage infoPage={{ infoPage, data, setData }} />
+      <section>
+        { post.length > 0
+          ? post.map((item) => <Card data={item} key={item.id} />)
+          : <Loading /> }
+      </section>
+      { loading && <Loading /> }
+      { !(+currentPage === +totalPages) && (
+      <button type="button" onClick={getMorePost}>Next</button>
+      )}
     </main>
   );
 }
-
-Home.propTypes = {};
 
 export default Home;

@@ -1,12 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function Loading({ visible }) {
-  return !visible ? <span data-testid="loading">Loading...</span> : null;
+function Loading() {
+  return (
+    <div>Loading...</div>
+  );
 }
-
-Loading.propTypes = ({
-  visible: PropTypes.bolean,
-}).isRequired;
 
 export default Loading;

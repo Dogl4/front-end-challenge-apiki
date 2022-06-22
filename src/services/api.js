@@ -1,33 +1,35 @@
 import axios from 'axios';
 
-const conection = async (page = '', type = 'categories=518') => {
+const conection = async (page, type) => {
   const baseUrl = 'https://blog.apiki.com/wp-json/wp/v2/posts?_embed&';
   const ConpletUrl = `${baseUrl}${type}${page}`;
-  const a = await axios.get(ConpletUrl);
-
-  return { headers: a.headers, data: a.data };
+  const result = await axios.get(ConpletUrl)
+    .then(({ data, headers }) => ({ headers, data }));
+  return result;
 };
 
 const organize = (item) => {
   const {
     title: { rendered }, link, slug, _embedded, id,
   } = item;
-
-  const [imgObj] = _embedded['wp:featuredmedia'];
-  const { alt_text: imgAlt, media_details: imgDetails } = imgObj;
-  const img = imgDetails.sizes['jnews-360x180'].source_url;
-  // o que voce quer que volte aqui nesse retorno que vai ser usado nos compornet react.
+  const [imgObj] = _embedded['wp:featuredmedia'] || [];
+  const img = (imgObj && imgObj?.media_details?.sizes['jnews-360x180']?.source_url) || '';
+  const { alt_text: imgAlt } = (imgObj && imgObj) || { alt_text: '' };
   return {
     titulo: rendered, link, slug, id, imgAlt, img,
   };
 };
 
-const dataFormatted = async (page = '') => {
-  const { data } = await conection(page);
+const infoPageFormat = (headers) => ({
+  currentPage: headers.link?.split('page=', -1)[1].split('>')[0],
+  totalPages: headers?.['x-wp-totalpages'],
+});
 
-  await conection(page);
+const dataFormatted = async (page = '', type = 'categories=518') => {
+  const { data, headers } = await conection(page, type);
   const newData = data?.map(organize);
-  return newData;
+  const newInfoPage = infoPageFormat(headers);
+  return { data: newData, infoPage: newInfoPage };
 };
 
 export default dataFormatted;
