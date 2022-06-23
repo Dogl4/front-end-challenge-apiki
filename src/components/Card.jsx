@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 
 function Card({ data }) {
   const {
-    id, img, imgAlt, slug, title,
+    id, index, img, imgAlt, slug, title,
   } = data;
+  const url = `/details/${index}/${id}`;
 
   return (
     <div className="card" data-testid="card" key={id}>
       <h2>{title}</h2>
-      <a href={`/details/${id}`}>
+      <a href={url}>
         <img src={img} alt={imgAlt} />
       </a>
-      <a href={`/details/${id}`}>{slug}</a>
+      <a href={url}>{slug}</a>
     </div>
   );
 }

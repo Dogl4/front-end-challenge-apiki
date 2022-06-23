@@ -30,7 +30,7 @@ function Home() {
       <div>Home</div>
       <section>
         { post.length > 0
-          ? post.map((item) => <Card data={item} key={item.id} />)
+          ? post.map((item, index) => <Card data={{ ...item, index }} key={item.id} />)
           : <Loading /> }
       </section>
       { loading && <Loading /> }

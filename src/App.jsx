@@ -6,8 +6,9 @@ import Details from './pages/Details';
 function App() {
   return (
     <Routes>
+      <Route path="*" element={<Home />} />
       <Route path="/" element={<Home />} />
-      <Route path="/details/:idPost" element={<Details />} />
+      <Route path="/details/:indexInPost/:idPost" element={<Details />} />
     </Routes>
   );
 }

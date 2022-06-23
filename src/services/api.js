@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const conection = async (page, type) => {
+export const conection = async (page = '', type = 'categories=518') => {
   const baseUrl = 'https://blog.apiki.com/wp-json/wp/v2/posts?_embed&';
   const ConpletUrl = `${baseUrl}${type}${page}`;
   const result = await axios.get(ConpletUrl)
