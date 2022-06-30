@@ -16,7 +16,7 @@ const organize = (item) => {
   const img = (imgObj && imgObj?.media_details?.sizes['jnews-360x180']?.source_url) || '';
   const { alt_text: imgAlt } = (imgObj && imgObj) || { alt_text: '' };
   return {
-    titulo: rendered, link, slug, id, imgAlt, img,
+    title: rendered, link, slug, id, imgAlt, img,
   };
 };
 

@@ -9,11 +9,15 @@ function Card({ data }) {
 
   return (
     <div className="card" data-testid="card" key={id}>
-      <h2>{title}</h2>
-      <a href={url}>
-        <img src={img} alt={imgAlt} />
-      </a>
-      <a href={url}>{slug}</a>
+      <div className="card__header">
+        <a href={url} className="card__header__link">
+          <img src={img} alt={imgAlt} className="card__header__link-image" />
+        </a>
+      </div>
+      <div className="card__content">
+        <h2 className="card__content-title">{title}</h2>
+        <a className="card__content-link" href={url}>{slug}</a>
+      </div>
     </div>
   );
 }
