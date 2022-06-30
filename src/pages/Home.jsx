@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Loading } from '../components';
+import Nav from '../components/Nav';
 import dataFormatted from '../services/api';
 
 function Home() {
@@ -26,18 +27,20 @@ function Home() {
 
   const { currentPage, totalPages } = pageInfo;
   return (
-    <main>
-      <div>Home</div>
-      <section>
-        { post.length > 0
-          ? post.map((item, index) => <Card data={{ ...item, index }} key={item.id} />)
-          : <Loading /> }
-      </section>
-      { loading && <Loading /> }
-      { !(+currentPage === +totalPages) && (
-      <button type="button" onClick={getMorePost}>Next</button>
-      )}
-    </main>
+    <>
+      <Nav infoPage={pageInfo} />
+      <main>
+        <section>
+          { post.length > 0
+            ? post.map((item, index) => <Card data={{ ...item, index }} key={item.id} />)
+            : <Loading /> }
+        </section>
+        { loading && <Loading /> }
+        { !(+currentPage === +totalPages) && (
+        <button type="button" onClick={getMorePost}>Next</button>
+        )}
+      </main>
+    </>
   );
 }
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Nav from '../components/Nav';
 import { conection } from '../services/api';
 import getPage from '../services/getPage';
 
@@ -18,10 +19,15 @@ function Details() {
   }, []);
 
   return (
-    <div className="details">
-      <p>{`indexInPost do post é ${indexInPost}`}</p>
-      { console.log('post', post) }
-    </div>
+    <>
+      <Nav />
+      <main>
+        <div className="details">
+          <p>{`indexInPost do post é ${indexInPost}`}</p>
+          { console.log('post', post) }
+        </div>
+      </main>
+    </>
   );
 }
 
